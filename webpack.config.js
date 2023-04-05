@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+const config = {
   entry: './src/index.ts',
   mode: 'development',
   devServer: {
@@ -82,3 +82,6 @@ module.exports = {
     publicPath: '/',
   },
 }
+
+module.exports = config;
+
