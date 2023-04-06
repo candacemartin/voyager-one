@@ -1,10 +1,21 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import * as express from 'express';
 import * as path from 'path';
+import mongoose from 'mongoose';
 import shroomRouter from './routes/shroomRouter'
 
 
 const app = express();
 const PORT = 3000;
+
+//db connection:
+mongoose.connect(process.env.MONGO_URI, {
+  dbName: 'db'
+})
+.then(()=>console.log('Connected to MongoDB'))
+.catch(err=>console.log(`Error connecting to MongoDB: ${err}`));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
