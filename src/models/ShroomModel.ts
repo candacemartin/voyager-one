@@ -13,7 +13,7 @@ interface Shroom extends Document {
 const shroomSchema = new Schema({
     name: {type: String, required: true },
     description: { type: String },
-    type: { type: String, required: true },
+    type: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });
