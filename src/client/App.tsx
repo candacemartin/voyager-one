@@ -12,7 +12,9 @@ const App = () => {
     const [cards, setCards] = useState<Card[]>([]);
 
     const addCard = (newCard: Card) => {
+        newCard.id = Date.now();
         setCards([...cards, newCard]);
+        console.log('cards', cards); 
     };
     const deleteCard = (cardId: number) => {
         const filteredCards = cards.filter(card => card.id !== cardId);

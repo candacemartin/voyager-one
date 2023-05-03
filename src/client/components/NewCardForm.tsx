@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 
 type NewCardFormProps = {
-    addCard: (card: { title: string, content: string }) => void;
+    addCard: (card: {id: number, title: string, content: string }) => void;
 }
 
-const NewCardForm = ({ addCard }: NewCardProps) => {
+const NewCardForm = ({ addCard }: NewCardFormProps) => {
     const [ title, setTitle ] = useState('');
     const [ content, setContent] = useState('');
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        addCard({ title, content});
+        console.log('form submitted');
+        addCard({ id: Date.now(), title, content});
         setTitle('');
         setContent('');
     };
