@@ -24,17 +24,19 @@ app.use('/shrooms', shroomRouter);
 
 //serve up the index.html
 app.get('/', (req, res) => {
-  console.log('inside get /');
   return res
     .status(200)
     .sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
-// app.get('/', (req, res) => {
-//   console.log(path.resolve(__dirname, '../src/index.html'))
-//   res.send('Hello World!');
-// });
+// Serve static files from the 'dist' directory
+app.use(express.static(path.join(__dirname, '../dist')));
 
+
+// Catch-all route handler
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
 app.use((err, req, res, next) => {
   const defaultErr = {
