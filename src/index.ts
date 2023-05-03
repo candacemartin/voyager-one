@@ -24,6 +24,7 @@ app.use('/shrooms', shroomRouter);
 
 //serve up the index.html
 app.get('/', (req, res) => {
+  console.log('inside get /');
   return res
     .status(200)
     .sendFile(path.resolve(__dirname, '../src/index.html'));
