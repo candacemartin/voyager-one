@@ -12,7 +12,7 @@ const App = () => {
         <div>
             <h1>check out my shroom react app lol</h1>
         </div>
-    );
+    )
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));
