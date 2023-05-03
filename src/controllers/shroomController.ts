@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Shroom from '../models/shroomModel';
+import Shroom from '../models/ShroomModel';
 import { createDecipheriv } from 'crypto';
 
 const shroomController = {
