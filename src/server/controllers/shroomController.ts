@@ -5,6 +5,7 @@ import { createDecipheriv } from 'crypto';
 const shroomController = {
     
     async getShrooms(req: Request, res: Response){
+        console.log('inside getShrooms')
         try{
             const shrooms = await Shroom.find();
             return res.json(shrooms);
@@ -64,6 +65,7 @@ const shroomController = {
     },
     
     async deleteShroomById(req: Request, res: Response){
+        console.log('inside deleteShroomById')
         try {
             const shroomId = req.params.id;
             const deletedShroom = await Shroom.findByIdAndDelete(shroomId);
