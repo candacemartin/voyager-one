@@ -16,9 +16,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+      {'copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        your website
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -54,7 +54,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -65,7 +65,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="First Name"
+                  label="first name"
                   autoFocus
                 />
               </Grid>
@@ -74,7 +74,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="lastName"
-                  label="Last Name"
+                  label="last name"
                   name="lastName"
                   autoComplete="family-name"
                 />
@@ -84,7 +84,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="email address"
                   name="email"
                   autoComplete="email"
                 />
@@ -94,7 +94,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -103,7 +103,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="click here if you want to receive inspiration, marketing promotions and updates via email :)"
                 />
               </Grid>
             </Grid>
@@ -113,12 +113,12 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              sign up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                  already have an account? sign in
                 </Link>
               </Grid>
             </Grid>
