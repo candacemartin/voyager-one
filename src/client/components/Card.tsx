@@ -2,18 +2,11 @@ import React, {useState} from 'react';
 import { Button, FormControl, FormGroup, Input, InputLabel, OutlinedInput } from '@mui/material';
 
 
-const useStyle = makeStyles({
-    formStyle: {
-        width: '50%'
-    }
-})
-
 const NewCard = () => {
-    const classes = useStyle();
     return (
         <div>
             <h1>Inputs</h1>
-            <FormGroup className={classes.formStyle}>
+            <FormGroup>
                 <FormControl>
                     <InputLabel>grow label</InputLabel>
                     <Input />

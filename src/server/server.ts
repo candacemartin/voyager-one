@@ -1,13 +1,13 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import express from 'express';
+import express, {Express, Request, Response, ErrorRequestHandler, NextFunction} from 'express';
 import * as path from 'path';
 import mongoose from 'mongoose';
 import shroomRouter from './routes/shroomRouter'
 
 
-const app = express();
+const app: Express = express();
 const PORT = 3000;
 
 //db connection:
@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/shrooms', shroomRouter);
 
 //serve up the index.html
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   return res
     .status(200)
     .sendFile(path.resolve(__dirname, '../src/index.html'));
@@ -34,11 +34,11 @@ app.use(express.static(path.join(__dirname, '../dist')));
 
 
 // Catch-all route handler
-app.get('*', (req, res) => {
+app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
-app.use((err, req, res, next) => {
+app.use((err: ErrorRequestHandler, req: Request, res: Response, next: NextFunction) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 400,
