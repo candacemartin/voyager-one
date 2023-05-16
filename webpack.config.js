@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  entry: './src/index.ts',
+  entry: './src/client/index.tsx',
   mode: 'development',
   devServer: {
     hot: true,
@@ -28,7 +28,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(ts|tsx)?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
@@ -49,9 +49,7 @@ const config = {
         }
     }),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('process.env.NODE_ENV'),
-      },
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
   ],
   resolve: {

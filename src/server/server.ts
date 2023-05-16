@@ -1,10 +1,21 @@
-import * as express from 'express';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
 import * as path from 'path';
+import mongoose from 'mongoose';
 import shroomRouter from './routes/shroomRouter'
 
 
 const app = express();
 const PORT = 3000;
+
+//db connection:
+mongoose.connect(process.env.MONGO_URI, {
+  dbName: 'db'
+})
+.then(()=>console.log('Connected to MongoDB'))
+.catch(err=>console.log(`Error connecting to MongoDB: ${err}`));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,11 +29,14 @@ app.get('/', (req, res) => {
     .sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
-// app.get('/', (req, res) => {
-//   console.log(path.resolve(__dirname, '../src/index.html'))
-//   res.send('Hello World!');
-// });
+// Serve static files from the 'dist' directory
+app.use(express.static(path.join(__dirname, '../dist')));
 
+
+// Catch-all route handler
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
 app.use((err, req, res, next) => {
   const defaultErr = {

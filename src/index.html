@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>SHROOM TIME</title>
   </head>
   <body>
-    <div id="app">
-      <h1>SHROOM TIME</h1>
-    </div>
+    <div id="root"></div>
+    <script src="/bundle.js"></script>
+    <script>
+        const script = document.querySelector('script[src="/bundle.js"]');
+        console.log('script.src', script.src); // logs "/bundle.js"
+    </script>
   </body>
 </html>
