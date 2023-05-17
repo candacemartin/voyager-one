@@ -1,4 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
+// import mongoose, { Schema, Document } from 'mongoose';
+
+const mongoose = require('mongoose')
 
 //define the interface for shroom document
 interface Shroom extends Document {
@@ -10,7 +12,7 @@ interface Shroom extends Document {
 };
 
 //define schema
-const shroomSchema = new Schema({
+const shroomSchema = new mongoose.Schema({
     name: {type: String, required: true },
     description: { type: String },
     type: { type: String },
@@ -19,6 +21,6 @@ const shroomSchema = new Schema({
 });
 
 //define model
-const Shroom = mongoose.model<Shroom>('Shroom', shroomSchema);
+const Shroom = mongoose.model('Shroom', shroomSchema);
 
-export default Shroom;
+module.exports = Shroom
