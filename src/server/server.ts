@@ -9,6 +9,7 @@ import express, {
   NextFunction,
 } from 'express';
 import * as path from 'path';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import shroomRouter from './routes/shroomRouter';
 import userRouter from './routes/userRouter';
@@ -22,6 +23,7 @@ mongoose
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -60,5 +62,5 @@ app.use(
 );
 
 app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+  console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });
