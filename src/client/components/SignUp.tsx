@@ -13,13 +13,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-const User = require('../../server/models/UserModel');
 
 function Copyright(props: any) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant='body2'
+      color='text.secondary'
+      align='center'
+      {...props}
+    >
       {'copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color='inherit' href='https://mui.com/'>
         your website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -31,27 +35,37 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     event.preventDefault();
-    const data = {
-      email,
-      password,
-      firstName,
-      lastName
-    }
-    console.log('data', data);
-    const newUser = await User.create(data);
-    console.log('newUser', newUser)
+    await fetch('http://localhost:3000/user/register', {
+      method: 'post',
+      mode: 'cors',
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        return err;
+      });
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
@@ -64,19 +78,19 @@ export default function SignUp() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component='h1' variant='h5'>
             sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component='form' noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
+                  autoComplete='given-name'
+                  name='firstName'
                   required
                   fullWidth
-                  id="firstName"
-                  label="first name"
+                  id='firstName'
+                  label='first name'
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   autoFocus
@@ -86,57 +100,62 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
-                  label="last name"
-                  name="lastName"
+                  id='lastName'
+                  label='last name'
+                  name='lastName'
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  autoComplete="family-name"
+                  autoComplete='family-name'
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="email address"
-                  name="email"
+                  id='email'
+                  label='email address'
+                  name='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  autoComplete="email"
+                  autoComplete='email'
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="password"
-                  type="password"
-                  id="password"
+                  name='password'
+                  label='password'
+                  type='password'
+                  id='password'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="new-password"
+                  autoComplete='new-password'
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="click here if you want to receive inspiration, marketing promotions and updates via email :)"
+                  control={
+                    <Checkbox value='allowExtraEmails' color='primary' />
+                  }
+                  label='click here if you want to receive inspiration, marketing promotions and updates via email :)'
                 />
               </Grid>
             </Grid>
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
+              variant='contained'
               sx={{ mt: 3, mb: 2 }}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                handleSubmit(e)
+              }
             >
               sign up
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent='flex-end'>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href='#' variant='body2'>
                   already have an account? sign in
                 </Link>
               </Grid>
