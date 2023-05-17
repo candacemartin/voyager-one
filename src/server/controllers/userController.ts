@@ -6,7 +6,8 @@ export default {
     try {
       const { firstName, lastName, email, password } = req.body;
       const user = await User.create({ firstName, lastName, email, password });
-      return res.send(user);
+      res.locals.user = user;
+      return next();
     } catch (error) {
       return next(error);
     }
