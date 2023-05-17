@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+const User = require('../../server/models/UserModel');
 
 function Copyright(props: any) {
   return (
@@ -29,13 +31,22 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const data = {
+      email,
+      password,
+      firstName,
+      lastName
+    }
+    console.log('data', data);
+    const newUser = await User.create(data);
+    console.log('newUser', newUser)
   };
 
   return (
@@ -66,6 +77,8 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="first name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   autoFocus
                 />
               </Grid>
@@ -76,6 +89,8 @@ export default function SignUp() {
                   id="lastName"
                   label="last name"
                   name="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   autoComplete="family-name"
                 />
               </Grid>
@@ -86,6 +101,8 @@ export default function SignUp() {
                   id="email"
                   label="email address"
                   name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
                 />
               </Grid>
@@ -97,6 +114,8 @@ export default function SignUp() {
                   label="password"
                   type="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   autoComplete="new-password"
                 />
               </Grid>
