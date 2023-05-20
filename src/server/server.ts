@@ -9,7 +9,7 @@ import express, {
   NextFunction,
 } from 'express';
 import * as path from 'path';
-import cors from 'cors';
+// import cors from 'cors';
 import mongoose from 'mongoose';
 import shroomRouter from './routes/shroomRouter';
 import userRouter from './routes/userRouter';
@@ -23,11 +23,11 @@ mongoose
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/shrooms', shroomRouter);
+// app.use('/shrooms', shroomRouter);
 app.use('/user', userRouter);
 
 //serve up the index.html

@@ -44,9 +44,8 @@ export default function SignUp() {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
-    await fetch('http://localhost:3000/user/register', {
+    await fetch('/api/user/register', {
       method: 'post',
-      mode: 'cors',
       body: JSON.stringify({
         firstName,
         lastName,
@@ -59,7 +58,7 @@ export default function SignUp() {
         return data;
       })
       .catch((err) => {
-        return err;
+        return `inside handle catch ${err}`;
       });
   };
 

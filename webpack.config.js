@@ -7,12 +7,13 @@ const config = {
   mode: 'development',
   devServer: {
     hot: true,
-    port: 8080,
+    // port: 8080,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://127.0.0.1:3000',
         secure: false,
         changeOrigin: true,
+        router: () => 'http://127.0.0.1:8080',
         pathRewrite: { '^/api': '' },
       },
     },
