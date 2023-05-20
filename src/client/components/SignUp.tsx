@@ -14,6 +14,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
 function Copyright(props: any) {
   return (
     <Typography
@@ -44,14 +51,17 @@ export default function SignUp() {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
+    const user: User = {
+      firstName,
+      lastName,
+      email,
+      password,
+    };
+    console.log(user);
     await fetch('/api/user/register', {
       method: 'post',
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        email,
-        password,
-      }),
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(user),
     })
       .then((res) => res.json())
       .then((data) => {
