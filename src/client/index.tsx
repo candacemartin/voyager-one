@@ -22,23 +22,14 @@ export const muiCache = createCache({
 });
 
 const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: <App/>,
-  // },
-  // {
-  //   path: '/dashboard',
-  //   element: <Dashboard/>
-  // }
     {
       path: "/",
       element: <App />,
     },
     {
-      path: "about",
-      element: <div>About</div>,
+      path: "dashboard",
+      element: <Dashboard/>,
     },
-  
 ]);
 
 
