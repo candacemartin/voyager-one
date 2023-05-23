@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 // import Button from '@mui/material/Button';
-import NewCard from './components/Card';
+import Album from './components/Album';
+import SignUp from './components/SignUp';
 
 
 const App = () => {
@@ -8,8 +9,8 @@ const App = () => {
     return (
         <div>
             <h1>check out my shroom react app lol this is hot</h1>
-            <NewCard />
-            {/* <Button variant="outlined">hi there</Button> */}
+            <SignUp />
+            <Album />
         </div>
     )
 };
