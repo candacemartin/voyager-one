@@ -6,6 +6,7 @@ const config = {
   entry: './src/client/index.tsx',
   mode: 'development',
   devServer: {
+    historyApiFallback: true,
     hot: true,
     port: 8080,
     proxy: {

@@ -11,6 +11,7 @@ const App = () => {
             <h1>check out my shroom react app lol this is hot</h1>
             <SignUp />
             <Album />
+            
         </div>
     )
 };

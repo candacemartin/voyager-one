@@ -30,13 +30,15 @@ app.use(express.urlencoded({ extended: true }));
 // app.use('/shrooms', shroomRouter);
 app.use('/api/user', userRouter);
 
+// Serve static files from the 'dist' directory
+app.use(express.static(path.join(__dirname, '../dist')));
+
 //serve up the index.html
-app.get('/', (req: Request, res: Response) => {
+app.get('/*', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
 });
 
-// Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, '../dist')));
+
 
 // Catch-all route handler
 app.get('*', (req: Request, res: Response) => {
