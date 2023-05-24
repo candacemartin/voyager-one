@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+interface CardProps {
+    growId: string;
+};
 interface CardData {
     _id: string;
     mushroom_type: string;
@@ -9,7 +12,7 @@ interface CardData {
     start_date: Date;
 }
 
-const Card = () => {
+const Card: React.FC<CardProps> = ({ growId }) => {
   const [data, setData] = useState<CardData[]>([]);
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const Card = () => {
     };
 
     fetchData();
-  }, []);
+  }, [growId]);
 
   return (
     <div>
