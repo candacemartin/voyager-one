@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.use('/shrooms', shroomRouter);
-app.use('/api/user', userRouter);
+app.use('/user', userRouter);
 
 //serve up the index.html
 app.get('/', (req: Request, res: Response) => {
