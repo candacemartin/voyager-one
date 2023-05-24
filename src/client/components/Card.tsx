@@ -1,46 +1,49 @@
-import React, {useState} from 'react';
-import { Button, FormControl, FormGroup, Input, InputLabel, OutlinedInput } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
+interface CardData {
+    _id: string;
+    mushroom_type: string;
+    container: string;
+    substrate: string;
+    inoculation_method: string;
+    start_date: Date;
+}
 
-const NewCard = () => {
-    return (
-        <div>
-            <h1>Inputs</h1>
-            <FormGroup>
-                <FormControl>
-                    <InputLabel>grow label</InputLabel>
-                    <Input />
-                </FormControl>
-                <FormControl>
-                    <OutlinedInput />
-                </FormControl>
-                <FormControl>
-                    <InputLabel>shroom type</InputLabel>
-                    <Input />
-                </FormControl>
-                <FormControl>
-                    <OutlinedInput />
-                </FormControl>
-                <FormControl>
-                    <InputLabel>substrate</InputLabel>
-                    <Input />
-                </FormControl>
-                <FormControl>
-                    <OutlinedInput />
-                </FormControl>
-                <FormControl>
-                    <InputLabel>context</InputLabel>
-                    <Input />
-                </FormControl>
-                <FormControl>
-                    <OutlinedInput />
-                </FormControl>
-                <Button variant="contained" color="secondary">
-                    submit
-                </Button>
-            </FormGroup>
-        </div>
-    )
+const Card = () => {
+  const [data, setData] = useState<CardData[]>([]);
+
+  useEffect(() => {
+    // fetch grow data from db
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/user/grow/:'); // confirm this endpoint
+        const data = await response.json();
+        setData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      {data.length > 0 ? (
+        data.map((item) => (
+          <div key={item._id}>
+            <h3>{item.mushroom_type}</h3>
+            <p>Container: {item.container}</p>
+            <p>Substrate: {item.substrate}</p>
+            <p>Inoculation Method: {item.inoculation_method}</p>
+          </div>
+        ))
+      ) : (
+        <p>Loading data...</p>
+      )}
+    </div>
+  );
 };
 
-export default NewCard;
+export default Card;
+
