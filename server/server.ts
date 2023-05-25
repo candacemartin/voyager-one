@@ -1,7 +1,8 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import express, { Express } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
+import session from 'express-session';
 import * as path from 'path';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -10,6 +11,70 @@ import userRouter from './routes/userRouter';
 
 const app: Express = express();
 const PORT = 3000;
+
+//passport/oauth:
+const passport = require('./passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+app.use(session({
+  secret: [process.env.MONGO_URI],
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }, 
+}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new GoogleStrategy({
+  clientID: 'your_client_id',
+  clientSecret: 'your_client_secret',
+  callbackURL: '/auth/google/callback', // Replace with your callback URL
+}, (accessToken: string, refreshToken: string, profile: any, done: any) => {
+  // Callback function called after successful authentication
+  // You can perform any necessary actions here (e.g., save user data to the database)
+  return done(null, profile);
+}));
+
+passport.serializeUser((user: any, done: any) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user: any, done: any) => {
+  done(null, user);
+});
+
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+  // Redirect to the desired page after successful authentication
+  res.redirect('/dashboard');
+});
+
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+  // Redirect to the desired page after successful authentication
+  res.redirect('/dashboard');
+});
+
+// Login route
+app.get('/login', (req, res) => {
+  res.render('login'); // Replace with the actual login page template
+});
+
+// Logout route
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
+});
+
+function ensureAuthenticated(req: any, res: Response, next: NextFunction) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
 
 //db connection:
 mongoose
