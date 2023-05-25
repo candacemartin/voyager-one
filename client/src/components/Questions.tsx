@@ -9,7 +9,7 @@ export default function Questions() {
   const [substrate, setSubstrate] = useState<string>('');
   const [inoculationMethod, setInoculationMethod] = useState<string>('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const card = { mushroomType, container, substrate, inoculationMethod };
     await fetch('/api/user/create', {
@@ -62,7 +62,7 @@ export default function Questions() {
       <Button
         type='submit'
         variant='contained'
-        onSubmit={(e) => handleSubmit(e)}
+        onSubmit={(e: React.FormEvent<HTMLButtonElement>) => handleSubmit(e)}
       >
         Add New Card
       </Button>

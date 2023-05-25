@@ -1,12 +1,12 @@
-import Album from './components/Album';
+// import Album from './components/Album';
 import SignUp from './components/SignUp';
+import Questions from './components/Questions';
 
 const App = () => {
   return (
     <div>
-      <h1>check out my shroom react app lol this is hot</h1>
       <SignUp />
-      <Album />
+      <Questions />
     </div>
   );
 };
