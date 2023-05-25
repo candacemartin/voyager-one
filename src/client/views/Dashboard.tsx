@@ -1,13 +1,13 @@
 import *  as React from 'react';
-import Card from '../components/Card';
+import CardList from '../components/CardList';
 
-const cardArray = [
+const cardArray = [];
 
 export default function Dashboard() {
     return (
         <div>
             <h1>testing</h1>
-            <Card />
+            <CardList />
         </div>
     )
 }
