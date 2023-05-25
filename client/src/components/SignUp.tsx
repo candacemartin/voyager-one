@@ -39,6 +39,14 @@ function Copyright(props: any) {
   );
 }
 
+function GoogleAuth(props: any) {
+  return (
+    <div>
+      <a href="/auth/google">Login with Google</a>
+    </div>
+  )
+}
+
 const theme = createTheme();
 
 export default function SignUp() {
@@ -172,6 +180,7 @@ export default function SignUp() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
+        <GoogleAuth />
       </Container>
     </ThemeProvider>
   );
