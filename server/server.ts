@@ -1,13 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import express, {
-  Express,
-  Request,
-  Response,
-  ErrorRequestHandler,
-  NextFunction,
-} from 'express';
+import express, { Express } from 'express';
 import * as path from 'path';
 import cors from 'cors';
 import mongoose from 'mongoose';
@@ -19,7 +13,7 @@ const PORT = 3000;
 
 //db connection:
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI!)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
 
@@ -28,20 +22,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // app.use('/shrooms', shroomRouter);
-app.use('/api/user', userRouter);
+app.use('/user', userRouter);
 
 //serve up the index.html
-app.get('/', (req: Request, res: Response) => {
-  return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
-});
+// app.get('/', (req: Request, res: Response) => {
+//   return res.status(200).sendFile(path.resolve(__dirname, '../src/index.html'));
+// });
 
 // Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, '../dist')));
+// app.use(express.static(path.join(__dirname, '../dist')));
 
 // Catch-all route handler
-app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
+// app.get('*', (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, '../dist/index.html'));
+// });
 
 // app.use(
 //   (
