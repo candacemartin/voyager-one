@@ -8,6 +8,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 // import shroomRouter from './routes/shroomRouter';
 import userRouter from './routes/userRouter';
+import cardRouter from './routes/cardRouter';
 
 const app: Express = express();
 const PORT = 3000;
@@ -16,26 +17,32 @@ const PORT = 3000;
 const passport = require('./passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-app.use(session({
-  secret: [process.env.MONGO_URI],
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false }, 
-}));
-
+app.use(
+  session({
+    secret: [process.env.MONGO_URI],
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false },
+  }),
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new GoogleStrategy({
-  clientID: 'your_client_id',
-  clientSecret: 'your_client_secret',
-  callbackURL: '/auth/google/callback', // Replace with your callback URL
-}, (accessToken: string, refreshToken: string, profile: any, done: any) => {
-  // Callback function called after successful authentication
-  // You can perform any necessary actions here (e.g., save user data to the database)
-  return done(null, profile);
-}));
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: 'your_client_id',
+      clientSecret: 'your_client_secret',
+      callbackURL: '/auth/google/callback', // Replace with your callback URL
+    },
+    (accessToken: string, refreshToken: string, profile: any, done: any) => {
+      // Callback function called after successful authentication
+      // You can perform any necessary actions here (e.g., save user data to the database)
+      return done(null, profile);
+    },
+  ),
+);
 
 passport.serializeUser((user: any, done: any) => {
   done(null, user);
@@ -45,17 +52,28 @@ passport.deserializeUser((user: any, done: any) => {
   done(null, user);
 });
 
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+app.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }),
+);
 
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  // Redirect to the desired page after successful authentication
-  res.redirect('/dashboard');
-});
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Redirect to the desired page after successful authentication
+    res.redirect('/dashboard');
+  },
+);
 
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  // Redirect to the desired page after successful authentication
-  res.redirect('/dashboard');
-});
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Redirect to the desired page after successful authentication
+    res.redirect('/dashboard');
+  },
+);
 
 // Login route
 app.get('/login', (req, res) => {
@@ -75,7 +93,6 @@ function ensureAuthenticated(req: any, res: Response, next: NextFunction) {
   res.redirect('/login');
 }
 
-
 //db connection:
 mongoose
   .connect(process.env.MONGO_URI!)
@@ -88,6 +105,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use('/shrooms', shroomRouter);
 app.use('/user', userRouter);
+app.use('/card', cardRouter);
 
 //serve up the index.html
 // app.get('/', (req: Request, res: Response) => {
@@ -120,6 +138,8 @@ app.use('/user', userRouter);
 //   },
 // );
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });
+
+export default server;
