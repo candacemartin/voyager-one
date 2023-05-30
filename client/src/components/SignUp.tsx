@@ -47,7 +47,6 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
 
   const handleSubmit = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -58,6 +57,8 @@ export default function SignUp() {
       lastName,
       email,
       password,
+      googleId,
+      displayName,
     };
     console.log(user);
     await fetch('/api/user/register', {
