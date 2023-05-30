@@ -4,6 +4,8 @@ import mongoose, { Schema, Document } from 'mongoose';
 interface User extends Document {
   email: string;
   password: string;
+  googleId: string;
+  displayName: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -11,7 +13,9 @@ interface User extends Document {
 //define schema
 const userSchema: Schema = new mongoose.Schema({
   email: { type: String, required: true },
-  password: { type: String, required: true },
+  password: { type: String },
+  googleId: { type: String },
+  displayName: { type: String },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

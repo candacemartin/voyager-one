@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import GoogleOauth from './GoogleOauth';
 interface User {
   firstName: string;
   lastName: string;
@@ -39,13 +39,7 @@ function Copyright(props: any) {
   );
 }
 
-function GoogleAuth(props: any) {
-  return (
-    <div>
-      <a href="/auth/google">Login with Google</a>
-    </div>
-  )
-}
+
 
 const theme = createTheme();
 
@@ -180,7 +174,7 @@ export default function SignUp() {
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
-        <GoogleAuth />
+        <GoogleOauth />
       </Container>
     </ThemeProvider>
   );
