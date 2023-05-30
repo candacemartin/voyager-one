@@ -13,7 +13,8 @@ const app: Express = express();
 const PORT = 3000;
 const clientSecret = process.env.CLIENT_SECRET || '';
 const clientID = process.env.CLIENT_ID || '';
-console.log('clientSecret', clientSecret);
+const MONGO_URI = process.env.MONGO_URI || '';
+console.log('clientSecret', clientSecret, 'clientID', clientID, 'MONGO_URI', MONGO_URI));
 
 //passport/oauth:
 const passport = require('./passport');
@@ -92,7 +93,7 @@ function ensureAuthenticated(req: any, res: Response, next: NextFunction) {
 
 //db connection:
 mongoose
-  .connect(process.env.MONGO_URI!)
+  .connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
 
