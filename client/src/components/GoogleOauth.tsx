@@ -1,7 +1,8 @@
 function GoogleOauth() {
     
     function clickEventHandler() {
-        window.location.href = '/auth/google';
+      console.log('google button clicked');  
+      window.location.href = '/auth/google';
     }
     return (
       <div>

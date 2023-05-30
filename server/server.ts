@@ -35,16 +35,17 @@ app.use(session({
 }));
 
 // this middleware checks if the user is authenticated. i so, it allows the request to proceed; otherwise, redirects user to /login page
-function ensureAuthenticated(req: any, res: Response, next: NextFunction) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
+// function ensureAuthenticated(req: any, res: Response, next: NextFunction) {
+  
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   res.redirect('/login');
+// }
 //mount routers
 app.use('/auth', authRouter);
 // app.use('/shrooms', shroomRouter);
-app.use('/user', ensureAuthenticated, userRouter);
+app.use('/user', userRouter);
 
 
 app.listen(PORT, () => {

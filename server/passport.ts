@@ -1,9 +1,11 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const clientSecret = process.env.CLIENT_SECRET || '';
-const clientID = process.env.CLIENT_ID || '';
-const User = require('./models/UserModel');
-const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+// const clientSecret = process.env.CLIENT_SECRET;
+// const clientID = process.env.CLIENT_ID;
+const clientSecret = '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'
+const clientID = '728151718604-sanii96lcpkd6ql9k6904c8laanvn637.apps.googleusercontent.com'
+import User from './models/UserModel';
 //const bcrypt = require('bcrypt');
 
 console.log('inside passport.ts');
@@ -22,7 +24,7 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true }, 
     async (accessToken: string, refreshToken: string, profile: any, done: any) => {
     // callback function called after successful authentication
-
+        console.log('inside passport callback1')
         //extract user data from profile object
         const { id, displayName, email } = profile;
         console.log('profile', profile);

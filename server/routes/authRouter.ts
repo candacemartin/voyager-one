@@ -4,11 +4,13 @@ const router: Router = Router();
 const passport = require('../passport');
 console.log('inside authRouter');
 
-router.get('/google', 
-    passport.authenticate('google', { 
-        session: false, 
-        scope: ['profile', 'email'] 
-    }));
+// router.get('/', (req: Request, res: Response) => {
+//     console.log('passport auth', passport.authenticate());
+//     res.send('inside authRouter get /');
+// })
+
+router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+    
 router.get('/google/callback',
     passport.authenticate('google', {failureRedirect: '/login'}),
     (req: Request, res: Response) => {
