@@ -216,8 +216,8 @@ Project Link: [https://github.com/myco-tech/voyager-one/](https://github.com/myc
 [stars-url]: https://github.com/github_username/repo_name/stargazers
 [issues-shield]: https://img.shields.io/github/issues/myco-tech/voyager-one.svg?style=for-the-badge
 [issues-url]: https://github.com/myco-tech/voyager-one/issues
-[license-shield]: https://img.shields.io/github/license/myco-tech/voyager-one.svg?style=for-the-badge
-[license-url]: https://github.com/myco-tech/voyager-one/blob/master/LICENSE.txt
+[license-shield]: https://img.shields.io/github/license/myco-tech/voyager-one?style=for-the-badge
+[license-url]: https://github.com/myco-tech/voyager-one/blob/dev/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: client/assets/Screenshot_2023-05-25.png
