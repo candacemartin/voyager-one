@@ -31,7 +31,7 @@
     <img src="./client/assets/Screenshot_2023-05-25.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Voyager One</h3>
+<h3 align="center">VoyagerOne</h3>
 
   <p align="center">
     Mushroom growth tracker powered by AI
