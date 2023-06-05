@@ -92,7 +92,7 @@ The app also offers a robust community platform where you can connect with fello
 
 Start your mushroom cultivation journey on the right track with VoyagerOne and experience the joy of harvesting your very own bountiful and healthy mushrooms like never before!
 
-VoyagerOne is currently in beta--hit us up if you'd like to be included in future updates and releases **
+VoyagerOne is currently in development and our beta release is coming soon--hit us up if you'd like to be included in future updates and releases!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
