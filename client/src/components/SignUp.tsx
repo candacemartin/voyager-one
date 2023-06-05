@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -41,9 +40,28 @@ export default function SignUp() {
   const [signUpToEmails, setSignUpToEmails] = useState(false);
 
   const handleSubmit = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    event.preventDefault();
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, signUpToEmails }),
+      });
+      if (!response.ok) {
+        throw new Error('Error signing up. Please try again.');
+      }
+      setEmail('');
+      setPassword('');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleGoogleAuth = () => {
+    console.log('google auth');
   };
 
   const handleSignUpToEmails = () => setSignUpToEmails(!signUpToEmails);
@@ -64,51 +82,58 @@ export default function SignUp() {
         sign up
       </Typography>
       <Box component='form' noValidate sx={{ mt: 3 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              type='email'
-              required
-              fullWidth
-              id='email'
-              label='email address'
-              name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete='email'
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              fullWidth
-              name='password'
-              label='password'
-              type='password'
-              id='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete='new-password'
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              onClick={() => handleSignUpToEmails()}
-              control={<Checkbox value='allowExtraEmails' color='primary' />}
-              label='click here if you want to receive inspiration, marketing promotions and updates via email :)'
-            />
-          </Grid>
-        </Grid>
-        <Button
-          type='submit'
+        <TextField
+          sx={{ mb: 1 }}
+          type='email'
+          required
           fullWidth
+          id='email'
+          label='email address'
+          name='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete='email'
+        />
+        <TextField
+          required
+          fullWidth
+          sx={{ mb: 1 }}
+          name='password'
+          label='password'
+          type='password'
+          id='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete='new-password'
+        />
+        <FormControlLabel
+          sx={{ mb: 1 }}
+          onClick={() => handleSignUpToEmails()}
+          control={<Checkbox value='allowExtraEmails' color='primary' />}
+          label='click here if you want to receive inspiration, marketing promotions and updates via email :)'
+        />
+        <Button
+          sx={{ mt: 1 }}
+          fullWidth
+          type='submit'
           variant='contained'
-          sx={{ mt: 3, mb: 2 }}
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
             handleSubmit(e)
           }
         >
           sign up
+        </Button>
+        <Button
+          fullWidth
+          variant='contained'
+          sx={{
+            mt: 0.5,
+            backgroundColor: '#0F9D58',
+            ':hover': { backgroundColor: '#DB4437' },
+          }}
+          onClick={() => handleGoogleAuth()}
+        >
+          Sign Up with Google
         </Button>
       </Box>
     </Box>
