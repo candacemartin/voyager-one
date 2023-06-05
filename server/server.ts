@@ -2,11 +2,12 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import express, { Express } from 'express';
-import * as path from 'path';
+// import * as path from 'path';
 import cors from 'cors';
 import mongoose from 'mongoose';
 // import shroomRouter from './routes/shroomRouter';
 import userRouter from './routes/userRouter';
+import chatRouter from './routes/chatRouter'
 
 const app: Express = express();
 const PORT = 3000;
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use('/shrooms', shroomRouter);
 app.use('/user', userRouter);
+app.use('/chat', chatRouter);
 
 //serve up the index.html
 // app.get('/', (req: Request, res: Response) => {
