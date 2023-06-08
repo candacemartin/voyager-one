@@ -6,6 +6,7 @@ import openai from '../openai.config';
 export default {
     async newMessage (req:Request, res: Response, next: NextFunction) {
         try {
+          console.log('we are in try block of chatController.newMessage', req.body)
             const openAIKey = process.env.OPEN_AI_KEY
             const isInitialMessage = req.body.isInitialMessage;
             const message = req.body.message;
@@ -29,21 +30,32 @@ export default {
             //       max_tokens: 60
             //     })
             // };
-
-            const response = await openai.createCompletion({
-              model: "text-davinci-003",
-              prompt: 'testing',
-              max_tokens: 7,
-              temperature: 0,
+            // console.log('openai.createCompletion', openai.createCompletion)
+            // const response = await openai.createChatCompletion({
+            //   model: "gpt-3.5-turbo",
+            //   prompt: promptMessage,
+            //   max_tokens: 7,
+            //   temperature: 0,
               
-            }, {
-              headers: {
-                'Authorization': `Bearer ${process.env.OPEN_AI_KEY!}`
-              }
-            });
+            // }, {
+            //   headers: {
+            //     'Authorization': `Bearer ${process.env.OPEN_AI_KEY!}`
+            //   }
+            // });
+            const response = await openai.createChatCompletion({
+              model: 'gpt-3.5-turbo',
+              messages: [
+                { role: 'user', content: promptMessage },
+              ],
+              temperature: 0,
+            }, {headers: {
+              'Authorization': `Bearer ${process.env.OPEN_AI_KEY!}`
+            }});
+      
 
+            console.log('response', response.data.choices[0].message.content)
             if (response.ok) {
-              res.locals.botMessage = response;
+              res.locals.botMessage = response.data.choices[0].message.content;
               return next()
             }
             
@@ -60,6 +72,7 @@ export default {
             //     console.error(error);
             // });
           } catch (err) {
+            console.log('api call error', err)
             res.status(500).json({ error: err });
           }
         }
