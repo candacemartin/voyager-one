@@ -11,7 +11,7 @@ import chatRouter from './routes/chatRouter';
 
 const app: Express = express();
 const PORT = 3000;
-
+console.log('made it to server')
 //db connection:
 mongoose
   .connect(process.env.MONGO_URI as string)

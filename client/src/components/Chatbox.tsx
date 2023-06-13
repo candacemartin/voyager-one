@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
-// const openAIKey = process.env.OPENAI_KEY;
+// const openAIKey = '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';
 
 interface Message {
   message: string;
@@ -27,10 +27,10 @@ export default function ChatBox() {
     try {
       const response = await fetch('/api/chat/new', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${openAIKey}}`,
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   // Authorization: `Bearer ${openAIKey}}`,
+        //   // 'Content-Type': 'application/json',
+        // },
         body: JSON.stringify({
           prompt: input,
           max_tokens: 60,
