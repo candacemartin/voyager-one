@@ -7,14 +7,14 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 // import shroomRouter from './routes/shroomRouter';
 import userRouter from './routes/userRouter';
-import chatRouter from './routes/chatRouter'
+import chatRouter from './routes/chatRouter';
 
 const app: Express = express();
 const PORT = 3000;
 
 //db connection:
 mongoose
-  .connect(process.env.MONGO_URI!)
+  .connect(process.env.MONGO_URI as string)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.log(`Error connecting to MongoDB: ${err}`));
 
