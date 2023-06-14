@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
-// const openAIKey = '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';
 
 interface Message {
   message: string;
