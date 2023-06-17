@@ -2,7 +2,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 
-import Auth from './pages/Auth';
+import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 
 // import createCache from '@emotion/cache';
@@ -15,7 +15,7 @@ import Dashboard from './pages/Dashboard';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Auth />,
+    element: <Home />,
   },
   {
     path: '/dashboard',
