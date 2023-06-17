@@ -1,9 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
 import User from '../models/UserModel';
-import { IUser } from '../models/UserModel';
 import { comparePasswords } from '../helpers/auth';
 
 // This configures the verify() cb to check for an existing user w/ same email & password
@@ -28,17 +26,6 @@ passport.use(
     },
   ),
 );
-
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: process.env.GOOGLE_CLIENT_ID!,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-//       callbackURL: '/dashboard',
-//     },
-//     (accessToken, refreshToken, profile, done) => {},
-//   ),
-// );
 
 passport.serializeUser((user, done) => {
   done(null, user);
