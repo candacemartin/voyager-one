@@ -4,6 +4,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import bodyParser from 'body-parser';
 
 import passport from './config/passport.config';
 import authRouter from './routes/authRouter';
@@ -12,8 +13,9 @@ import chatRouter from './routes/chatRouter';
 const app: Express = express();
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.SESSION_SECRET as string,

@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 
 export default function Auth() {
   return (
-    <Grid container maxWidth='xl' justifyContent='center'>
+    <Grid container justifyContent='center'>
       <Grid item xs={12}>
         <Header />
       </Grid>
