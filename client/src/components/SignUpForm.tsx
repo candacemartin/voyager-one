@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 import SignUpInput from './SignUpInput';
 import SignUpButton from './SignUpButton';
 import SignUpEmails from './SignUpEmails';
 
 export default function SignUpForm(): React.JSX.Element {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [subscribedToEmails, setSubscribedToEmails] = useState(false);
@@ -23,8 +25,12 @@ export default function SignUpForm(): React.JSX.Element {
         subscribedToEmails,
       }),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then(() => {
+        setEmail('');
+        setPassword('');
+        setSubscribedToEmails(false);
+        return navigate('/dashboard');
+      })
       .catch((err) => console.error(err));
   };
 
