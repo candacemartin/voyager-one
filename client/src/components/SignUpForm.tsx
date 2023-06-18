@@ -8,11 +8,24 @@ import SignUpEmails from './SignUpEmails';
 export default function SignUpForm(): React.JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [emailSignUp, setEmailSignUp] = useState(false);
+  const [subscribedToEmails, setSubscribedToEmails] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('testing');
+    fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        subscribedToEmails,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -23,7 +36,10 @@ export default function SignUpForm(): React.JSX.Element {
         value={password}
         handleChange={setPassword}
       />
-      <SignUpEmails emailSignUp={emailSignUp} handleChange={setEmailSignUp} />
+      <SignUpEmails
+        emailSignUp={subscribedToEmails}
+        handleChange={setSubscribedToEmails}
+      />
       <SignUpButton />
     </Box>
   );

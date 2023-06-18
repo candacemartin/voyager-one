@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
   position: 'absolute',
@@ -18,6 +19,7 @@ const style = {
 };
 
 export default function LoginModal() {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +27,26 @@ export default function LoginModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleSubmit = () => console.log('button clicked');
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      console.log('inside try block of handleSubmit');
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        console.log('response.ok: ', response.ok);
+        handleClose();
+        return navigate('/dashboard');
+      }
+    } catch (err) {
+      return console.error(err);
+    }
+  };
 
   return (
     <>
@@ -59,7 +80,7 @@ export default function LoginModal() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button variant='contained' fullWidth>
+          <Button variant='contained' fullWidth type='submit'>
             log in
           </Button>
         </Box>

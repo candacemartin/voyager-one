@@ -9,10 +9,12 @@ router.post('/signup', authController.signUp, (req: Request, res: Response) =>
   res.send({ message: 'successful signup', user: req.user }),
 );
 
-router.get(
+router.post(
   '/login',
   passport.authenticate('local'),
-  (req: Request, res: Response) => res.send({ message: 'successful login' }),
+  authController.logIn,
+  (req: Request, res: Response) =>
+    res.status(200).send({ message: 'successful login' }),
 );
 
 export default router;

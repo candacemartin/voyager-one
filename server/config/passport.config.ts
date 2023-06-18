@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 
-import User from '../models/UserModel';
+import User, { IUser } from '../models/UserModel';
 import { comparePasswords } from '../helpers/auth';
 
 // This configures the verify() cb to check for an existing user w/ same email & password
@@ -10,33 +10,44 @@ passport.use(
     { usernameField: 'email' },
     async (email, password, done) => {
       try {
-        const user = await User.findOne({ email });
+        console.log('inside try block of LocalStrategy config');
+        const user: IUser | null = await User.findOne({ email });
         if (!user) {
+          // User not found
+          console.log('user not found');
           return done(null, false);
         }
-
-        if (!comparePasswords(user.password, password)) {
+        const compare = await comparePasswords(password, user.password);
+        if (!compare) {
+          // Invalid password
+          console.log('invalid password');
           return done(null, false);
         }
-
+        // User authenticated successfully
+        console.log('user authenticated successfully');
         return done(null, user);
       } catch (err) {
-        return done(err); // Pass the error to the 'done' callback
+        return done(err, false);
       }
     },
   ),
 );
 
+// serialize user object and store in session
 passport.serializeUser((user, done) => {
-  done(null, user);
+  console.log('inside passport.serializeUser');
+  // @ts-ignore
+  done(null, user.id);
 });
 
-passport.deserializeUser(async ({ _id }, done) => {
+// retrieve serialized data and reconstruct user object
+passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findById(_id);
-    done(null, user);
+    console.log('inside passport.deserializeUser');
+    const user = await User.findById(id);
+    return done(null, user);
   } catch (err) {
-    done(err, null);
+    return done(err, null);
   }
 });
 
