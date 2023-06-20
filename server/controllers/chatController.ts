@@ -4,32 +4,34 @@ import openai from '../config/openai.config';
 
 export default {
   async newMessage(req: Request, res: Response, next: NextFunction) {
-    console.log('req.bod', req.body)
+    const message = req.body.message;
     try {
-      console.log('we are in try block of chatController.newMessage', req.body);
-      const message = req.body;
-      let promptMessage = message;
+      console.log('inside try block of newMessage.chatController');
+      // const fetchOptions = {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      //   },
+      //   body: JSON.stringify({
+      //     model: 'gpt-3.5-turbo',
+      //     prompt: `${req.body.message}`,
+      //   }),
+      // };
 
-      const response = await openai.createChatCompletion(
-        {
-          model: 'text-davinci-003',
-          "messages": [{"role": "user", "content": promptMessage}],
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
+      const chatCompletion = await openai.chat.completions.create({
+        model: 'gpt-3.5-turbo',
+        messages: [{ role: 'user', content: message }],
+        stream: true,
+      });
+      // for await (const part of chatCompletion) {
+      //   console.log(part.choices[0].delta);
+      // }
 
-      console.log('response', response.data.choices[0].message.content);
-      if (response.ok) {
-        res.locals.botMessage = response.data.choices[0].message.content;
-        return next();
-      }
+      res.locals.chatCompletion = chatCompletion;
+      return next();
     } catch (err) {
-      console.log('api call error', err);
-      res.status(500).json({ error: err });
+      return next(err);
     }
   },
 };
