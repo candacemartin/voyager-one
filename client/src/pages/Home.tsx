@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import SignUpContainer from '../components/SignUpContainer';
 import Footer from '../components/Footer';
 
-export default function Auth() {
+export default function Home() {
   return (
     <Grid container justifyContent='center'>
       <Grid item xs={12}>

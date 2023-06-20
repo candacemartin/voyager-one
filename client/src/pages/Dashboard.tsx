@@ -1,7 +1,11 @@
+import Container from '@mui/material/Container';
+
+import ChatbotContainer from '../components/ChatbotContainer';
+
 export default function Dashboard() {
   return (
-    <div>
-      <h1>testing</h1>
-    </div>
+    <Container>
+      <ChatbotContainer />
+    </Container>
   );
 }
